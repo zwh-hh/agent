@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>深度研究助手</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=20260326" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel form-panel">
+        <div class="heading-stack">
+          <p class="eyebrow">Research Studio</p>
+          <h1>深度研究助手</h1>
+          <p class="subtitle">支持 SSE 实时进度、联网检索与任务历史导出。</p>
+          <p class="subtitle security-note">
+            API 密钥已迁移至服务端安全配置中心：
+            <a href="settings.html">打开配置界面</a>
+          </p>
+        </div>
+
+        <form id="research-form">
+          <label>
+            研究主题
+            <input id="topic" name="topic" required placeholder="例如：2026 年 AI Agent 工具链的商业化路径" />
+          </label>
+
+          <label>
+            研究背景/约束
+            <textarea id="context" name="context" rows="4" placeholder="例如：面向中型 SaaS 团队，关注可落地与 ROI"></textarea>
+          </label>
+
+          <label>
+            参考来源（每行一个 URL，可选）
+            <textarea id="sources" name="sources" rows="4" placeholder="https://...\nhttps://..."></textarea>
+          </label>
+
+          <div class="grid two-cols">
+            <label>
+              研究深度
+              <select id="depth" name="depth">
+                <option value="fast">fast</option>
+                <option value="standard" selected>standard</option>
+                <option value="deep">deep</option>
+              </select>
+            </label>
+
+            <label>
+              Agent 架构
+              <select id="agentMode" name="agentMode">
+                <option value="multi" selected>multi-agent</option>
+                <option value="single">single-agent</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="grid two-cols">
+            <label>
+              模型通道
+              <select id="provider" name="provider">
+                <option value="openai" selected>OpenAI API (DPI)</option>
+                <option value="local">本地模型（OpenAI-Compatible）</option>
+              </select>
+            </label>
+            <label>
+              联网检索
+              <select id="searchProvider" name="searchProvider">
+                <option value="none" selected>none</option>
+                <option value="tavily">tavily</option>
+                <option value="serpapi">serpapi</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="compact-field">
+            搜索结果数
+            <input id="searchMaxResults" name="searchMaxResults" type="number" min="3" max="12" value="8" />
+          </label>
+
+          <section class="provider-card">
+            <h3>安全说明</h3>
+            <p>
+              为保护密钥安全，主界面不再直接输入 API Key。研究任务将使用服务端已保存的安全配置。
+            </p>
+            <a class="settings-link" href="settings.html">前往安全配置中心</a>
+          </section>
+
+          <button id="submit-btn" type="submit">创建研究任务</button>
+        </form>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="output-header">
+          <h2>研究输出</h2>
+          <span id="status">等待执行</span>
+        </div>
+
+        <pre id="meta" class="meta"></pre>
+
+        <div class="stream-box">
+          <h3>实时进度</h3>
+          <pre id="stream-log" class="stream-log">尚未开始</pre>
+        </div>
+
+        <article id="report" class="report empty">运行后将在这里生成结构化报告。</article>
+
+        <div class="history-box">
+          <div class="history-head">
+            <h3>任务历史</h3>
+            <button id="refresh-history" type="button">刷新</button>
+          </div>
+          <ul id="history-list" class="history-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js?v=20260326" type="module"></script>
+  </body>
+</html>

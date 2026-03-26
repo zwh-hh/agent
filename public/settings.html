@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>安全配置中心</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=20260326" />
+  </head>
+  <body>
+    <main class="app-shell settings-shell">
+      <section class="panel form-panel settings-panel">
+        <div class="heading-stack">
+          <p class="eyebrow">Security Center</p>
+          <h1>安全配置中心</h1>
+          <p class="subtitle">将 API Key 保存在服务端，不在主业务页面直接暴露。</p>
+        </div>
+
+        <form id="settings-form">
+          <label>
+            Admin Token（必填）
+            <input id="adminToken" type="password" placeholder="请输入服务端 ADMIN_TOKEN" autocomplete="off" required />
+          </label>
+
+          <section class="provider-card">
+            <h3>OpenAI</h3>
+            <label>
+              API Key
+              <input id="openaiApiKey" type="password" placeholder="sk-...（留空不修改）" autocomplete="off" />
+            </label>
+            <label class="inline-check">
+              <input id="clearOpenaiApiKey" type="checkbox" />
+              清空 OpenAI API Key
+            </label>
+            <div class="grid two-cols">
+              <label>
+                Base URL
+                <input id="openaiBaseUrl" placeholder="https://api.openai.com/v1" />
+              </label>
+              <label>
+                Model
+                <input id="openaiModel" placeholder="gpt-4.1" />
+              </label>
+            </div>
+          </section>
+
+          <section class="provider-card">
+            <h3>本地模型</h3>
+            <div class="grid two-cols">
+              <label>
+                Base URL
+                <input id="localBaseUrl" placeholder="http://127.0.0.1:11434/v1" />
+              </label>
+              <label>
+                Model
+                <input id="localModel" placeholder="llama3.1" />
+              </label>
+            </div>
+            <label>
+              API Key（若本地服务需要）
+              <input id="localApiKey" type="password" placeholder="留空不修改" autocomplete="off" />
+            </label>
+            <label class="inline-check">
+              <input id="clearLocalApiKey" type="checkbox" />
+              清空本地模型 API Key
+            </label>
+          </section>
+
+          <section class="provider-card">
+            <h3>联网检索</h3>
+            <label>
+              Tavily API Key
+              <input id="tavilyApiKey" type="password" placeholder="tvly-...（留空不修改）" autocomplete="off" />
+            </label>
+            <label class="inline-check">
+              <input id="clearTavilyApiKey" type="checkbox" />
+              清空 Tavily API Key
+            </label>
+
+            <label>
+              SerpAPI Key
+              <input id="serpApiKey" type="password" placeholder="...（留空不修改）" autocomplete="off" />
+            </label>
+            <label class="inline-check">
+              <input id="clearSerpApiKey" type="checkbox" />
+              清空 SerpAPI Key
+            </label>
+          </section>
+
+          <div class="actions-row">
+            <button id="load-btn" type="button">读取当前配置</button>
+            <button id="save-btn" type="submit">保存安全配置</button>
+          </div>
+          <a class="settings-link" href="index.html">返回研究主页</a>
+        </form>
+      </section>
+
+      <section class="panel output-panel settings-status-panel">
+        <div class="output-header">
+          <h2>配置状态</h2>
+          <span id="status">待读取</span>
+        </div>
+        <pre id="settings-meta" class="meta">请先输入 Admin Token，再点击“读取当前配置”。</pre>
+        <article id="settings-tip" class="report empty">
+          安全策略：
+          1) 主页面不再传递 API Key。
+          2) 密钥保存在服务端文件中。
+          3) 配置接口需要 X-Admin-Token。
+        </article>
+      </section>
+    </main>
+
+    <script src="settings.js?v=20260326" type="module"></script>
+  </body>
+</html>

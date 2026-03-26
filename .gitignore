@@ -1,0 +1,11 @@
+.env
+.DS_Store
+.venv
+.pycache
+__pycache__
+*.pyc
+data/reports/*
+!data/reports/.gitkeep
+data/tasks/*
+!data/tasks/.gitkeep
+data/settings/secrets.json
